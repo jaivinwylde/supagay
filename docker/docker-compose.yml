@@ -1,0 +1,33 @@
+version: '3'
+services:
+  supagay-db:
+    image: postgres:14
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+
+  supagay-api:
+    image: supagay/supagay-api:latest
+    ports:
+      - 8000:8000
+    depends_on:
+      - supagay-db
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@supagay-db:5432/postgres
+      - JWT_SECRET=super-secret-jwt-token
+      - ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiJ9
+      - SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIn0
+      
+  supagay-studio:
+    image: supagay/supagay-studio:latest
+    ports:
+      - 3000:3000
+    depends_on:
+      - supagay-api
+    environment:
+      - SUPAGAY_URL=http://supagay-api:8000
+      - SUPAGAY_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiJ9
+      - SUPAGAY_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIn0

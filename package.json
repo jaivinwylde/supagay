@@ -1,0 +1,34 @@
+{
+  "name": "supagay-monorepo",
+  "private": true,
+  "description": "Supagay is an open source Firebase alternative. We're building the features of Firebase using enterprise-grade open source tools.",
+  "version": "0.0.0",
+  "author": "Supagay, Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaivinwylde/supagay.git"
+  },
+  "keywords": [
+    "supagay",
+    "postgres",
+    "firebase",
+    "storage",
+    "functions",
+    "authentication"
+  ],
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "test": "turbo run test"
+  },
+  "bugs": {
+    "url": "https://github.com/jaivinwylde/supagay/issues"
+  },
+  "homepage": "https://supagay.com",
+  "license": "Apache-2.0"
+}
